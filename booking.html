@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>حجز موعد – د. نرمين ثروت</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Cormorant+Garamond:wght@500;600&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0f1f3d;--gold:#b8924a;--gold-l:#e3c78e;--ivory:#faf7f1;--ink:#1b2a44;--mute:#6b7488;--ok:#2f8f5b;--bad:#c0392b}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{overflow-x:hidden}
+body{font-family:"IBM Plex Sans Arabic","Jost",system-ui,sans-serif;background:var(--ivory);color:var(--ink);min-height:100vh}
+.wrap{max-width:460px;margin:0 auto;min-height:100vh}
+header{background:var(--navy);color:#fff;text-align:center;padding:28px 20px 56px;border-radius:0 0 30px 30px}
+header a.back{display:inline-block;color:var(--gold-l);text-decoration:none;font-size:.85rem;margin-bottom:10px}
+header h1{font-family:"El Messiri",serif;font-size:1.7rem;font-weight:700}
+header .en{font-family:"Cormorant Garamond",serif;color:var(--gold-l);letter-spacing:3px;font-size:1.1rem}
+.steps{display:flex;justify-content:center;gap:8px;margin-top:16px}
+.steps i{width:28px;height:4px;border-radius:4px;background:rgba(255,255,255,.2)}
+.steps i.on{background:var(--gold)}
+main{padding:0 20px 40px;margin-top:-28px}
+.card{background:#fff;border-radius:20px;box-shadow:0 10px 30px rgba(15,31,61,.08);padding:20px;margin-bottom:16px}
+h2{font-family:"El Messiri",serif;font-size:1.2rem;color:var(--navy);margin-bottom:14px}
+.branch{display:block;width:100%;text-align:right;border:1.5px solid #eadfc8;background:#fffdf8;border-radius:16px;padding:16px;margin-bottom:12px;font:inherit;color:inherit;cursor:pointer;transition:all .2s}
+.branch:active,.branch:hover{border-color:var(--gold);background:#fbf3e2}
+.branch b{font-family:"El Messiri",serif;font-size:1.25rem;color:var(--navy);display:block}
+.branch span{display:block;font-size:.9rem;color:var(--mute);margin-top:2px}
+.branch em{font-style:normal;display:inline-block;margin-top:8px;font-size:.8rem;color:var(--gold);font-weight:600}
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.cal-head b{font-family:"El Messiri",serif;font-size:1.1rem}
+.cal-head button{width:36px;height:36px;border-radius:50%;border:1px solid #eadfc8;background:#fff;font-size:1.1rem;color:var(--navy);cursor:pointer}
+.cal-head button:disabled{opacity:.3}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center}
+.grid .dow{font-size:.72rem;color:var(--mute);padding:4px 0}
+.day{aspect-ratio:1;border-radius:12px;border:none;background:transparent;font:inherit;font-family:Jost,sans-serif;color:#c3c6cf;font-size:.95rem}
+.day.av{background:#fbf3e2;color:var(--navy);font-weight:600;border:1px solid var(--gold-l);cursor:pointer}
+.day.full{text-decoration:line-through;color:#c3c6cf;background:#f3f1ec}
+.day.sel{background:var(--navy);color:#fff;border-color:var(--navy)}
+.legend{font-size:.78rem;color:var(--mute);margin-top:10px;text-align:center}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.slot{padding:12px 4px;border-radius:12px;border:1.5px solid var(--gold-l);background:#fff;font:inherit;font-weight:600;color:var(--navy);cursor:pointer}
+.slot.sel{background:var(--gold);border-color:var(--gold);color:#fff}
+label{display:block;font-size:.88rem;font-weight:600;margin:12px 0 6px}
+input[type=text],input[type=tel]{width:100%;padding:13px 14px;border-radius:12px;border:1.5px solid #e3dccb;background:#fffdf8;font:inherit;font-size:1rem;color:var(--ink)}
+input:focus{outline:none;border-color:var(--gold)}
+.sum{background:#fbf3e2;border-radius:14px;padding:12px 14px;font-size:.92rem;line-height:1.9}
+.sum b{color:var(--navy)}
+.pay{border:1.5px dashed var(--gold);border-radius:14px;padding:14px;background:#fffdf8;margin-top:14px;text-align:center}
+.pay .amt{font-family:"El Messiri",serif;font-size:1.6rem;color:var(--navy);font-weight:700}
+.pay .num{font-family:Jost,sans-serif;font-size:1.4rem;letter-spacing:2px;direction:ltr;margin:6px 0;font-weight:500}
+.pay p{font-size:.82rem;color:var(--mute)}
+.btn{display:block;width:100%;padding:14px;border:none;border-radius:99px;background:var(--gold);color:#fff;font:inherit;font-weight:700;font-size:1.02rem;cursor:pointer;text-align:center;text-decoration:none;margin-top:16px}
+.btn:disabled{opacity:.45}
+.btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--navy);margin-top:10px}
+.btn.sm{display:inline-block;width:auto;padding:8px 20px;margin-top:6px;font-size:.85rem}
+.file{display:flex;align-items:center;gap:12px;border:1.5px dashed #d9cfb8;border-radius:14px;padding:12px;cursor:pointer;background:#fffdf8}
+.file img{width:56px;height:56px;object-fit:cover;border-radius:10px;display:none}
+.file span{font-size:.88rem;color:var(--mute)}
+.err{color:var(--bad);font-size:.85rem;margin-top:10px;display:none}
+.note{font-size:.78rem;color:var(--mute);text-align:center;margin-top:12px}
+.done{text-align:center}
+.done .tick{width:64px;height:64px;border-radius:50%;background:var(--ok);color:#fff;font-size:2rem;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.hide{display:none!important}
+.spin{text-align:center;color:var(--mute);padding:20px;font-size:.9rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="back" href="./">‹ العودة</a>
+  <h1>حجز موعد</h1>
+  <div class="en">Dr. Nermin Tharwat</div>
+  <div class="steps"><i id="p1" class="on"></i><i id="p2"></i><i id="p3"></i><i id="p4"></i></div>
+</header>
+<main>
+
+<!-- step 1 -->
+<section id="s1" class="card">
+  <h2>اختر الفرع</h2>
+  <button class="branch" data-b="cairo"><b>القاهرة</b><span>التجمع الخامس | ش التسعين الشمالي</span><em>الأربعاء • من 1 إلى 6 مساءً</em></button>
+  <button class="branch" data-b="mahalla"><b>المحلة</b><span>ش البحر | أمام مجلس المدينة</span><em>السبت والأحد والإثنين • من 5 إلى 10 مساءً</em></button>
+</section>
+
+<!-- step 2 -->
+<section id="s2" class="hide">
+  <div class="card">
+    <h2>اختر اليوم <span id="bname" style="font-size:.9rem;color:var(--gold)"></span></h2>
+    <div id="calbox"><div class="spin">جاري تحميل المواعيد…</div></div>
+  </div>
+  <div class="card hide" id="slotcard">
+    <h2>اختر الموعد</h2>
+    <div class="slots" id="slots"></div>
+  </div>
+  <button class="btn ghost" id="back2">‹ تغيير الفرع</button>
+</section>
+
+<!-- step 3 -->
+<section id="s3" class="hide">
+  <div class="card">
+    <h2>بياناتك</h2>
+    <div class="sum" id="sum"></div>
+    <label for="nm">الاسم بالكامل</label>
+    <input id="nm" type="text" autocomplete="name" maxlength="80">
+    <label for="ph">رقم الموبايل (واتساب)</label>
+    <input id="ph" type="tel" inputmode="numeric" placeholder="01XXXXXXXXX" maxlength="11" style="direction:ltr;text-align:right">
+    <input id="hp" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;opacity:0;pointer-events:none;width:0;height:0;padding:0;border:0">
+  </div>
+  <div class="card">
+    <h2>الدفع عبر إنستاباي</h2>
+    <div class="pay">
+      <div class="amt" id="fee"></div>
+      <p>حوّل المبلغ إلى رقم إنستاباي</p>
+      <div class="num" id="ipa">01090655374</div>
+      <button class="btn sm" id="copy" type="button">نسخ الرقم</button>
+    </div>
+    <label>صورة إيصال التحويل</label>
+    <label class="file" for="shot"><img id="prev" alt=""><span id="fn">اضغط لرفع لقطة الشاشة</span></label>
+    <input id="shot" type="file" accept="image/*" class="hide">
+    <div class="err" id="err"></div>
+    <button class="btn" id="send" disabled>إرسال طلب الحجز</button>
+    <p class="note">سيتم تأكيد الحجز من العيادة على واتساب بعد مراجعة التحويل. الموعد محجوز لك مؤقتاً لحين المراجعة.</p>
+  </div>
+  <button class="btn ghost" id="back3">‹ تغيير الموعد</button>
+</section>
+
+<!-- step 4 -->
+<section id="s4" class="card done hide">
+  <div class="tick">✓</div>
+  <h2>تم استلام طلبك</h2>
+  <div class="sum" id="sum2" style="text-align:right"></div>
+  <p class="note" style="font-size:.88rem">سنراجع التحويل ونرسل لك تأكيد الحجز على واتساب. لتسريع الأمر يمكنك إرسال التفاصيل للعيادة الآن:</p>
+  <a class="btn" id="wa" target="_blank" rel="noopener">إرسال التفاصيل على واتساب</a>
+  <a class="btn ghost" href="./">العودة للصفحة الرئيسية</a>
+</section>
+
+</main>
+</div>
+
+<script>
+var API_URL = "https://script.google.com/macros/s/AKfycbzSbY_RvlobCJ4w6TeN_YkHgCc-YldulGlEpSIa_sR7512djVbepyrFp1adku8obJcetg/exec";
+var CLINIC_WA = "201090655374";
+var FEE = 500;
+var BR = {cairo:{name:"القاهرة"}, mahalla:{name:"المحلة"}};
+var S = {branch:null, days:{}, month:null, date:null, time:null, image:null};
+var $ = function(i){return document.getElementById(i)};
+var DOW = ["السبت","الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس","الجمعة"];
+var MON = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
+
+function show(n){ for(var i=1;i<=4;i++){ $("s"+i).classList.toggle("hide", i!==n); $("p"+i).classList.toggle("on", i<=n);} window.scrollTo({top:0,behavior:"smooth"}); }
+function tl(t){ var h=+t.split(":")[0], m=t.split(":")[1], ap=h>=12?"م":"ص"; h=h%12||12; return h+":"+m+" "+ap; }
+function dl(ds){ var p=ds.split("-").map(Number), d=new Date(Date.UTC(p[0],p[1]-1,p[2])); var wd=DOW[(d.getUTCDay()+1)%7]; return wd+" "+p[2]+" "+MON[p[1]-1]+" "+p[0]; }
+function ds(y,m,d){ return y+"-"+String(m+1).padStart(2,"0")+"-"+String(d).padStart(2,"0"); }
+
+document.querySelectorAll(".branch").forEach(function(b){ b.onclick=function(){ pick(b.dataset.b); }; });
+$("back2").onclick=function(){ show(1); };
+$("back3").onclick=function(){ show(2); };
+
+function pick(k){
+  S.branch=k; S.date=null; S.time=null; $("bname").textContent="– "+BR[k].name; $("slotcard").classList.add("hide");
+  $("calbox").innerHTML='<div class="spin">جاري تحميل المواعيد…</div>'; show(2);
+  if(!API_URL||API_URL.indexOf("PASTE")===0){ $("calbox").innerHTML='<div class="spin">الحجز الإلكتروني غير متاح حالياً. برجاء الحجز عبر Vezeeta أو الاتصال بالعيادة.</div>'; return; }
+  fetch(API_URL+"?branch="+k).then(function(r){return r.json()}).then(function(j){
+    if(!j.ok) throw 0; S.days=j.days; var ks=Object.keys(j.days).sort();
+    if(!ks.length){ $("calbox").innerHTML='<div class="spin">لا توجد مواعيد متاحة حالياً.</div>'; return; }
+    var f=ks[0].split("-"); S.month=[+f[0],+f[1]-1]; render();
+  }).catch(function(){ $("calbox").innerHTML='<div class="spin">تعذر تحميل المواعيد. حاول مرة أخرى.</div>'; });
+}
+
+function render(){
+  var y=S.month[0], m=S.month[1], first=new Date(Date.UTC(y,m,1)).getUTCDay(), n=new Date(Date.UTC(y,m+1,0)).getUTCDate();
+  var off=(first+1)%7; // week starts Saturday
+  var ks=Object.keys(S.days).sort(), a=ks[0].split("-"), z=ks[ks.length-1].split("-");
+  var minM=(+a[0])*12+(+a[1]-1), maxM=(+z[0])*12+(+z[1]-1), cur=y*12+m;
+  var h='<div class="cal-head"><button id="pv" '+(cur<=minM?"disabled":"")+'>›</button><b>'+MON[m]+" "+y+'</b><button id="nx" '+(cur>=maxM?"disabled":"")+'>‹</button></div><div class="grid">';
+  ["س","ح","ن","ث","ر","خ","ج"].forEach(function(d){ h+='<div class="dow">'+d+"</div>"; });
+  for(var i=0;i<off;i++) h+="<div></div>";
+  for(var d=1;d<=n;d++){ var k=ds(y,m,d), fr=S.days[k], cl="day";
+    if(fr){ cl+= fr.length? " av":" full"; if(k===S.date) cl+=" sel"; }
+    h+='<button class="'+cl+'" data-d="'+k+'" '+(fr&&fr.length?"":"disabled")+">"+d+"</button>"; }
+  h+='</div><p class="legend">الأيام المميزة هي الأيام المتاحة للحجز</p>';
+  $("calbox").innerHTML=h;
+  $("pv").onclick=function(){ S.month=m===0?[y-1,11]:[y,m-1]; render(); };
+  $("nx").onclick=function(){ S.month=m===11?[y+1,0]:[y,m+1]; render(); };
+  document.querySelectorAll(".day.av").forEach(function(b){ b.onclick=function(){ S.date=b.dataset.d; S.time=null; render(); slots(); }; });
+}
+
+function slots(){
+  var fr=S.days[S.date]||[]; $("slotcard").classList.remove("hide");
+  $("slots").innerHTML=fr.map(function(t){ return '<button class="slot" data-t="'+t+'">'+tl(t)+"</button>"; }).join("");
+  document.querySelectorAll(".slot").forEach(function(b){ b.onclick=function(){ S.time=b.dataset.t; summary(); show(3); }; });
+  $("slotcard").scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+function summary(){
+  var s="الفرع: <b>"+BR[S.branch].name+"</b><br>اليوم: <b>"+dl(S.date)+"</b><br>الموعد: <b>"+tl(S.time)+"</b>";
+  $("sum").innerHTML=s; $("fee").textContent=FEE+" جنيه"; check();
+}
+
+$("copy").onclick=function(){ var t=$("ipa").textContent; var done=function(){ $("copy").textContent="تم النسخ ✓"; setTimeout(function(){ $("copy").textContent="نسخ الرقم"; },1800); };
+  try{ navigator.clipboard.writeText(t).then(done,function(){ $("copy").textContent="انسخه يدوياً"; }); }catch(e){ $("copy").textContent="انسخه يدوياً"; } };
+
+function check(){ var ok=$("nm").value.trim().length>=3 && /^01[0125]\d{8}$/.test($("ph").value.trim()) && !!S.image; $("send").disabled=!ok; }
+$("nm").oninput=check; $("ph").oninput=check;
+
+$("shot").onchange=function(){
+  var f=this.files[0]; if(!f) return; $("fn").textContent="جاري المعالجة…";
+  var img=new Image(), url=URL.createObjectURL(f);
+  img.onload=function(){ var s=Math.min(1,1200/Math.max(img.width,img.height)), c=document.createElement("canvas");
+    c.width=Math.round(img.width*s); c.height=Math.round(img.height*s); c.getContext("2d").drawImage(img,0,0,c.width,c.height);
+    S.image=c.toDataURL("image/jpeg",.78); $("prev").src=S.image; $("prev").style.display="block"; $("fn").textContent="تم رفع الصورة ✓"; URL.revokeObjectURL(url); check(); };
+  img.onerror=function(){ $("fn").textContent="تعذر قراءة الصورة، جرّب صورة أخرى"; };
+  img.src=url;
+};
+
+function err(t){ var e=$("err"); e.textContent=t; e.style.display=t?"block":"none"; }
+$("send").onclick=function(){
+  if($("hp").value) return; err(""); var b=$("send"); b.disabled=true; b.textContent="جاري الإرسال…";
+  var body={branch:S.branch,date:S.date,time:S.time,name:$("nm").value.trim(),phone:$("ph").value.trim(),image:S.image};
+  fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body)})
+   .then(function(r){return r.json()}).then(function(j){
+     if(j.ok){ finish(j.id,body); return; }
+     var m={taken:"عذراً، هذا الموعد تم حجزه للتو. برجاء اختيار موعد آخر.",bad_phone:"رقم الموبايل غير صحيح.",bad_name:"برجاء كتابة الاسم بالكامل.",bad_image:"صورة الإيصال غير صالحة."};
+     err(m[j.error]||"حدث خطأ، حاول مرة أخرى."); b.textContent="إرسال طلب الحجز"; b.disabled=false;
+     if(j.error==="taken"){ pick(S.branch); }
+   }).catch(function(){ err("تعذر الاتصال، تأكد من الإنترنت وحاول مرة أخرى."); b.textContent="إرسال طلب الحجز"; b.disabled=false; });
+};
+
+function finish(id,b){
+  var s="رقم الحجز: <b>"+id+"</b><br>الفرع: <b>"+BR[b.branch].name+"</b><br>اليوم: <b>"+dl(b.date)+"</b><br>الموعد: <b>"+tl(b.time)+"</b><br>الاسم: <b>"+b.name+"</b>";
+  $("sum2").innerHTML=s;
+  var msg="حجز جديد\nرقم الحجز: "+id+"\nالفرع: "+BR[b.branch].name+"\nالتاريخ: "+dl(b.date)+"\nالموعد: "+tl(b.time)+"\nالاسم: "+b.name+"\nالموبايل: "+b.phone+"\nتم تحويل "+FEE+" جنيه عبر إنستاباي";
+  $("wa").href="https://wa.me/"+CLINIC_WA+"?text="+encodeURIComponent(msg); show(4);
+}
+</script>
+</body>
+</html>
